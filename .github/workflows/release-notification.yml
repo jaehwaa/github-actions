@@ -14,8 +14,14 @@ jobs:
         run: |
           release_info=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/jaehwaa/github-actions/releases/latest)
           release_note=$(echo $release_info | jq -r '.body')
-          modified_string=$(echo -n "release_note" | sed 's/\r//g')
-          echo "최근 릴리스 노트 정보:"
+          modified_string=$(echo -n $release_note | sed 's/\r//g')
+          
+          echo "release_info"
+          echo $release_info
+          
+          echo "release_note"
+          echo $release_note
+          
           echo $modified_string
           echo "release_notes=$modified_string" >> $GITHUB_OUTPUT
 
