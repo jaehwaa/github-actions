@@ -16,7 +16,8 @@ jobs:
           release_note=$(echo $release_info | jq -r '.body')
           modified_string=$(echo -n "release_note" | sed 's/\r//g')
           echo "최근 릴리스 노트 정보:"
-          echo "release_notes=$(echo $modified_string)" >> $GITHUB_OUTPUT
+          echo $modified_string
+          echo "release_notes=$modified_string" >> $GITHUB_OUTPUT
 
       - name: Slack Notification
         run: |
