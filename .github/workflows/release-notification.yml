@@ -10,12 +10,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Get latest release notes
+        id: get_release_notes
         run: |
           release_info=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/jaehwaa/github-actions/releases/latest)
           release_notes=$(echo $release_info | jq -r '.body')
           echo "최근 릴리스 노트 정보:"
-          echo $release_notes
-          echo "::set-output name=release_notes::$release_notes"
+          echo "release_notes=$release_notes" >> $GITHUB_OUTPUT
 
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
