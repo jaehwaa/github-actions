@@ -20,6 +20,6 @@ jobs:
 
       - name: Slack Notification
         run: |
-          MSG="{ \"text\": \"🚀 최신 릴리스 노트: ${{ steps.get_release_notes.outputs.release_notes }}\" }"
+          MSG="{ \"text\":\" ${{ steps.get_release_notes.outputs.release_notes }} \"}"
           echo $MSG
           curl -X POST -H 'Content-type: application/json' --data "${MSG}" "${{ secrets.slack_webhook_url }}"
