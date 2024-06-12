@@ -15,4 +15,9 @@ jobs:
           release_notes=$(echo $release_info | jq -r '.body')
           echo "최근 릴리스 노트 정보:"
           echo $release_notes
-          curl -X POST -H 'Content-type: application/json' --data "{ \"text\":\">${release_notes} \"}" "${{ secrets.slack_webhook_url }}"
+
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.slack_webhook_url }}
+          SLACK_MESSAGE: ${{ steps.get_release_notes.outputs.release_notes }}
