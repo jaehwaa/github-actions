@@ -15,8 +15,4 @@ jobs:
           release_notes=$(echo $release_info | jq -r '.body')
           echo "최근 릴리스 노트 정보:"
           echo $release_notes
-      - name: front-deploy-notification
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: reboot-qa-issue
-          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          curl -X POST -H 'Content-type: application/json' --data "${MSG}" "${{ inputs.slack_webhook_url }}"
