@@ -1,0 +1,17 @@
+template: |
+  ## What’s Changed
+
+  $CHANGES
+
+categories:
+  - title: "🚀 Features"
+    label: "feature"
+  - title: "🐛 Bug Fixes"
+    labels:
+      - "fix"
+  - title: "🤖 Refactoring"
+    labels:
+      - "refactor"
+  - title: "🐤 Chore"
+    labels:
+      - "chore"
