@@ -4,12 +4,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  release:
+  get_release_notes:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Extract release notes
-        uses: ffurrer2/extract-release-notes@v2
-        with:
-          prerelease: true
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get latest release notes
+        run: |
+          release_info=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/jaehwaa/github-actions/releases/latest)
+          release_notes=$(echo $release_info | jq -r '.body')
+          echo "최근 릴리스 노트 정보:"
+          echo $release_notes
