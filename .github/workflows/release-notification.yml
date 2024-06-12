@@ -15,4 +15,4 @@ jobs:
           release_notes=$(echo $release_info | jq -r '.body')
           echo "최근 릴리스 노트 정보:"
           echo $release_notes
-          curl -X POST -H 'Content-type: application/json' --data "${MSG}" "${{ inputs.slack_webhook_url }}"
+          curl -X POST -H 'Content-type: application/json' --data "${release_notes}" "${{ inputs.slack_webhook_url }}"
