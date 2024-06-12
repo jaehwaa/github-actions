@@ -16,9 +16,10 @@ jobs:
           release_note=$(echo $release_info | jq -r '.body')
           modified_string=$(echo -n "release_note" | sed 's/\r//g')
           echo "최근 릴리스 노트 정보:"
-          echo "release_notes=$modified_string" >> $GITHUB_OUTPUT
+          echo "release_notes=${modified_string}" >> $GITHUB_OUTPUT
 
       - name: Slack Notification
         run: |
           MSG="{ \"text\": \"🚀 최신 릴리스 노트: ${{ steps.get_release_notes.outputs.release_notes }}\" }"
-          curl -X POST -H 'Content-type: application/json' --data "${MSG}" "${{ secrets.slack_webhook_url }}"
+          echo $MSG
+#          curl -X POST -H 'Content-type: application/json' --data "${MSG}" "${{ secrets.slack_webhook_url }}"
