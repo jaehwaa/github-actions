@@ -13,20 +13,13 @@ jobs:
         id: get_release_notes
         run: |
           release_info=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/jaehwaa/github-actions/releases/latest)
-          release_note=$(echo $release_info | jq -r '.body')
-          modified_string=$(echo -n $release_note | sed 's/\r$//')
+          description=$(echo $release_info | jq -r '.body')
+          release_notes=$(echo -n $description | sed 's/\r$//')
           
-          echo "release_info"
-          echo $release_info
-          
-          echo "release_note"
-          echo $release_note
-          
-          echo $modified_string
-          echo "release_notes=$modified_string" >> $GITHUB_OUTPUT
+          echo "release_notes=$release_notes" >> $GITHUB_OUTPUT
 
       - name: Slack Notification
         run: |
           MSG="{ \"text\": \"🚀 최신 릴리스 노트: ${{ steps.get_release_notes.outputs.release_notes }}\" }"
           echo $MSG
-#          curl -X POST -H 'Content-type: application/json' --data "${MSG}" "${{ secrets.slack_webhook_url }}"
+          curl -X POST -H 'Content-type: application/json' --data "${MSG}" "${{ secrets.slack_webhook_url }}"
